@@ -1,5 +1,5 @@
 import { Component, Input, OnInit, Output } from "@angular/core";
-import { interval } from "rxjs";
+import { interval, Observable } from "rxjs";
 import { switchMap } from "rxjs/operators";
 import { HttpClient } from "@angular/common/http";
 
@@ -14,22 +14,16 @@ export class DataEmitterComponent implements OnInit {
   @Input() intervalPeriod: number;
 
   minutes: number = 10000;
-  subscription$: any;
+  subscription$: Observable<any>;
 
   constructor(private http: HttpClient) {}
   ngOnInit() {
-    // this.getData().subscribe(data => {
-    //   this.data = data;
-    //   console.log(this.data);
-    // });
+    this.subscription$ = this.getData();
 
     this.minutes = this.intervalPeriod * 60 * 1000;
-    this.subscription$ = interval(this.minutes)
-      .pipe(switchMap(() => this.getData()))
-      .subscribe(data => {
-        this.data = data;
-        console.log(this.data);
-      });
+    this.subscription$ = interval(this.minutes).pipe(
+      switchMap(() => this.getData())
+    );
   }
 
   getData() {
@@ -37,6 +31,6 @@ export class DataEmitterComponent implements OnInit {
   }
 
   ngOnDestroy() {
-    this.subscription$.unsubscribe();
+    //this.subscription$.unsubscribe();
   }
 }
