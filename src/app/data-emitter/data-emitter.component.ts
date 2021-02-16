@@ -1,7 +1,6 @@
 import { Component, Input, OnInit, Output } from "@angular/core";
 import { interval } from "rxjs";
 import { flatMap, map } from "rxjs/operators";
-import { Http } from "@angular/http";
 import { HttpClient } from "@angular/common/http";
 
 @Component({
