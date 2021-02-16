@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, Output } from "@angular/core";
 import { interval } from "rxjs";
-import { flatMap, map, switchMap } from "rxjs/operators";
+import { switchMap } from "rxjs/operators";
 import { HttpClient } from "@angular/common/http";
 
 @Component({
