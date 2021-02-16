@@ -3,13 +3,12 @@
 </p>
 
 
-
 <ng-container *ngIf="(subscription$ | async ) as d; else noContent">
-    <ng-container>
-        <h3>
-            {{d | json}}
-        </h3>
-    </ng-container>
+	<ng-container>
+		<h3>
+			{{d | json}}
+		</h3>
+	</ng-container>
 </ng-container>
 
 <ng-template #noContent> No content found </ng-template>

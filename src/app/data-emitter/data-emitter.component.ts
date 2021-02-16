@@ -16,9 +16,7 @@ export class DataEmitterComponent implements OnInit {
   minutes: number = 10000;
   subscription$: Observable<any>;
 
-  constructor(private http: HttpClient) {
-    this.subscription$ = this.getData();
-  }
+  constructor(private http: HttpClient) {}
   ngOnInit() {
     this.minutes = this.intervalPeriod * 60 * 1000;
     this.subscription$ = interval(this.minutes).pipe(
