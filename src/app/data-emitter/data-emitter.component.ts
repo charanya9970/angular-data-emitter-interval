@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, Output } from "@angular/core";
-import { interval, Observable } from "rxjs";
-import { switchMap } from "rxjs/operators";
+import { interval, Observable, of } from "rxjs";
+import { catchError, filter, switchMap } from "rxjs/operators";
 import { HttpClient } from "@angular/common/http";
 
 @Component({
@@ -20,7 +20,16 @@ export class DataEmitterComponent implements OnInit {
   ngOnInit() {
     this.minutes = this.intervalPeriod * 60 * 1000;
     this.subscription$ = interval(this.minutes).pipe(
-      switchMap(() => this.getData())
+      switchMap( () => {
+          return this.getData().pipe(
+            catchError(err => {
+              // Handle errors
+              console.error(err);
+              return of(undefined);
+            })
+          );
+        }),
+        filter(data => data !== undefined)
     );
   }
 
