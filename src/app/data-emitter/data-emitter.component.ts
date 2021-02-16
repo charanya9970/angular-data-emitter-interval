@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, Output } from "@angular/core";
 import { interval } from "rxjs";
-import { flatMap, map } from "rxjs/operators";
+import { flatMap, map, switchMap } from "rxjs/operators";
 import { HttpClient } from "@angular/common/http";
 
 @Component({
@@ -25,7 +25,7 @@ export class DataEmitterComponent implements OnInit {
 
     this.minutes = this.intervalPeriod * 60 * 1000;
     this.subscription$ = interval(this.minutes)
-      .pipe(flatMap(() => this.getData()))
+      .pipe(switchMap(() => this.getData()))
       .subscribe(data => {
         this.data = data;
         console.log(this.data);
